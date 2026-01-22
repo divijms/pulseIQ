@@ -1,0 +1,25 @@
+{
+  "event_id": "uuid",
+  "event_type": "string",
+  "user_id": "string",
+  "session_id": "string",
+  "event_ts": "timestamp",
+  "ingest_ts": "timestamp",
+  "product": {
+    "feature": "string",
+    "action": "string"
+  },
+  "device": {
+    "os": "string",
+    "app_version": "string"
+  },
+  "geo": {
+    "country": "string",
+    "region": "string"
+  },
+  "metrics": {
+    "latency_ms": "integer",
+    "value": "double"
+  }
+}
+

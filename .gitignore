@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.env
+
+# Spark
+spark-warehouse/
+*.crc
+
+# Kafka
+kafka-logs/
+
+# Airflow
+airflow/logs/
+airflow/airflow.db
+airflow/webserver_config.py
+
+# Checkpoints
+checkpoints/
+*/checkpoints/
+
+# Docker
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
