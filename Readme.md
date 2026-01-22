@@ -1,6 +1,4 @@
-# PulseIQ — Project Context & Execution Notes
-
-## Project Vision
+# PulseIQ
 PulseIQ is a real-time behavioral intelligence platform that ingests high-volume product events, detects anomalies in near real time, and explains their root causes using a modern cloud-native data engineering architecture.
 
 This project is designed to demonstrate production-grade data engineering skills, not as a toy or academic pipeline.
@@ -67,9 +65,3 @@ No real AWS resources are used to avoid cost.
 - Interview-defensible design decisions
 
 ---
-
-## Portfolio Positioning
-PulseIQ complements an existing domain-specific pipeline (e.g., CricPulse) by showcasing:
-- Product-level thinking
-- Real-time intelligence systems
-- Senior-level data engineering execution
