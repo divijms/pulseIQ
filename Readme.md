@@ -1,8 +1,6 @@
 # PulseIQ
 PulseIQ is a real-time behavioral intelligence platform that ingests high-volume product events, detects anomalies in near real time, and explains their root causes using a modern cloud-native data engineering architecture.
 
-This project is designed to demonstrate production-grade data engineering skills, not as a toy or academic pipeline.
-
 ---
 
 ## Core Problem Statement
