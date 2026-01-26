@@ -22,15 +22,14 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - "9092:9092"   # INTERNAL TRAFFIC
-      - "29092:29092" # HOST
+      - "9092:9092"     # INTERNAL (containers)
+      - "29092:29092"   # HOST access
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,PLAINTEXT_HOST://0.0.0.0:29092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
-
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
@@ -44,6 +43,8 @@ services:
     ports:
       - "7077:7077"
       - "8080:8080"
+    volumes:
+      - ../:/opt/spark/work-dir
 
   # ------------------------
   # Spark Worker
@@ -54,50 +55,8 @@ services:
     depends_on:
       - spark-master
     command: /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
-
-  # ------------------------
-  # Postgres (Airflow)
-  # ------------------------
-  postgres:
-    image: postgres:15
-    container_name: airflow-postgres
-    environment:
-      POSTGRES_USER: airflow
-      POSTGRES_PASSWORD: airflow
-      POSTGRES_DB: airflow
-
-  # ------------------------
-  # Airflow Webserver
-  # ------------------------
-  airflow-webserver:
-    image: apache/airflow:2.9.0
-    container_name: airflow-webserver
-    depends_on:
-      - postgres
-    environment:
-      AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
-      AIRFLOW__CORE__LOAD_EXAMPLES: "False"
-    ports:
-      - "8081:8080"
     volumes:
-      - ./airflow/dags:/opt/airflow/dags
-    command: webserver
-
-  # ------------------------
-  # Airflow Scheduler
-  # ------------------------
-  airflow-scheduler:
-    image: apache/airflow:2.9.0
-    container_name: airflow-scheduler
-    depends_on:
-      - airflow-webserver
-    environment:
-      AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
-    volumes:
-      - ./airflow/dags:/opt/airflow/dags
-    command: scheduler
+      - ../:/opt/spark/work-dir
 
   # ------------------------
   # MinIO
