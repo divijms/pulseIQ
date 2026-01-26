@@ -14,7 +14,7 @@ services:
       - "5432:5432"
 
   airflow-webserver:
-    build: .
+    image: apache/airflow:2.10.2-python3.11
     container_name: airflow-webserver
     depends_on:
       - postgres
@@ -27,11 +27,11 @@ services:
       - ./logs:/opt/airflow/logs
       - ./plugins:/opt/airflow/plugins
     ports:
-      - "8081:8081"
-    command: webserver --port 8081
+      - "8081:8080"
+    command: webserver
 
   airflow-scheduler:
-    build: .
+    image: apache/airflow:2.10.2-python3.11
     container_name: airflow-scheduler
     depends_on:
       - airflow-webserver
